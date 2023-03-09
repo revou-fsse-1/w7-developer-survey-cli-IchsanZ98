@@ -41,23 +41,51 @@ const questions = [
     name: "yearsOfExperience",
     message: "How many years of experience you have with JavaScript?",
     choices: ["0-1", "1-3", "3-5", "5-10", "10+"],
-    when: (answers) => (answers.isExperienced === "yes" ? true : false),
+    when: (answers) => {
+      if (answers.isExperienced === "yes") {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
   {
     type: "checkbox",
     name: "jsLibraries",
     message: "How many javascript library do you know?",
     choices: ["React.js", "Vue", "Angular", "Node.js", "jQuery", "D3.js"],
-    when: (answers) => (answers.isExperienced === "yes" ? true : false),
-    validate: (input) =>
-      input.length > 0 ? true : "You have to choose at least one library",
+    when: (answers) => {
+      if (answers.isExperienced === "yes") {
+        return true;
+      }
+      return false;
+    },
+    validate: (input) => {
+      if (input.length > 0) {
+        return true;
+      } else {
+        return "You have to choose at least one library";
+      }
+    },
   },
+
   {
     type: "number",
     name: "expectedSalary",
     message: "What is your desired salary?",
-    when: (answers) => (answers.isExperienced === "yes" ? true : false),
-    validate: (input) => (input > 0 ? true : "Salary cannot be 0"),
+    when: (answers) => {
+      if (answers.isExperienced === "yes") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    validate: (input) => {
+      if (input > 0) {
+        return true;
+      }
+      return "Salary cannot be 0";
+    },
   },
 ];
 
