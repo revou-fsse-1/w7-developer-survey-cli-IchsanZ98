@@ -81,10 +81,13 @@ const questions = [
       }
     },
     validate: (input) => {
-      if (input > 0) {
-        return true;
+      if (!isNaN(parseFloat(input))) {
+        if (input > 0) {
+          return true;
+        }
+        return "Salary cannot be 0";
       }
-      return "Salary cannot be 0";
+      return false || "Please enter a number";
     },
   },
 ];
