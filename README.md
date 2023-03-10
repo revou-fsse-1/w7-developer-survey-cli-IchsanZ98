@@ -1,6 +1,6 @@
 # Developer Survey CLI
 
-- Assignment Example for Week 7: Programming — JavaScript, Node.js, npm, TypeScript
+- Assignment for Week 7: Programming — JavaScript, Node.js, npm, TypeScript
 
 We will make Developer Survey using CLI and JavaScript
 

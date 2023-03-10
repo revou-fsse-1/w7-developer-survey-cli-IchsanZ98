@@ -91,45 +91,62 @@ const questions = [
       return false || "Please enter a number";
     },
   },
+  {
+    type: "confirm",
+    name: "confirmInput",
+    message: "Are you sure you want to proceed with the given information?",
+    default: true,
+  },
 ];
 
 // run your command
-inquirer
-  .prompt(questions)
-  .then((answers) => {
-    console.log(JSON.stringify(answers, null, 2));
-    console.log(`Thank you, ${answers.firstName}!`);
-    console.log(`Your email address is ${answers.emailAddress}.`);
-    if (answers.isExperienced === "yes") {
-      console.log(`You are an experienced developer.`);
-    } else {
-      console.log(`You are not an experienced developer.`);
-    }
-    if (answers.isExperienced === "no") {
-      console.log("You are not an experienced developer yet.");
-    } else {
-      const numLibraries = answers.jsLibraries.length;
-      if (numLibraries < 3) {
-        console.log("You have some knowledge of javascript libraries.");
-      } else if (numLibraries < 6) {
-        console.log("You have a good knowledge of javascript libraries.");
+function runPrompt() {
+  inquirer
+    .prompt(questions)
+    .then((answers) => {
+      if (answers.confirmInput === false) {
+        // If the user is not sure, restart the prompt from the beginning
+        return runPrompt();
+      }
+      console.log(JSON.stringify(answers, null, 2));
+      console.log(`Thank you, ${answers.firstName}!`);
+      console.log(`Your email address is ${answers.emailAddress}.`);
+      if (answers.isExperienced === "yes") {
+        console.log(`You are an experienced developer.`);
       } else {
+        console.log(`You are not an experienced developer yet.`);
+      }
+      if (answers.isExperienced === "no") {
+        console.log("need to learn more.");
+      } else {
+        const numLibraries = answers.jsLibraries.length;
+        if (numLibraries < 3) {
+          console.log("You have some knowledge of javascript libraries.");
+        } else if (numLibraries < 6) {
+          console.log("You have a good knowledge of javascript libraries.");
+        } else {
+          console.log(
+            "You have a perfect knowledge of JS libraries. You're a genius!"
+          );
+        }
         console.log(
-          "You have a perfect knowledge of JS libraries. You're a genius!"
+          `You know the following JavaScript libraries: ${answers.jsLibraries.join(
+            ", "
+          )}.`
+        );
+        console.log(
+          `Your expected salary is Rp.${answers.expectedSalary},00-.`
         );
       }
-      console.log(
-        `You know the following JavaScript libraries: ${answers.jsLibraries.join(
-          ", "
-        )}.`
-      );
-      console.log(`Your expected salary is Rp.${answers.expectedSalary},00-.`);
-    }
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      console.log("Your console environment is not supported!");
-    } else {
-      console.log(error);
-    }
-  });
+    })
+    .catch((error) => {
+      if (error.isTtyError) {
+        console.log("Your console environment is not supported!");
+      } else {
+        console.log(error);
+      }
+    });
+}
+
+// call the function to start the survey prompt
+runPrompt();
