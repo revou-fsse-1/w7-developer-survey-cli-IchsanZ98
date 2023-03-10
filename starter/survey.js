@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
 
+// fill the questions
 const questions = [
   {
     type: "input",
@@ -64,7 +65,7 @@ const questions = [
       if (input.length > 0) {
         return true;
       } else {
-        return "You have to choose at least one library";
+        return "You need to select at least one javascript library.";
       }
     },
   },
@@ -72,7 +73,7 @@ const questions = [
   {
     type: "number",
     name: "expectedSalary",
-    message: "What is your desired salary?",
+    message: "What is your desired salary (IDR)?",
     when: (answers) => {
       if (answers.isExperienced === "yes") {
         return true;
@@ -97,6 +98,33 @@ inquirer
   .prompt(questions)
   .then((answers) => {
     console.log(JSON.stringify(answers, null, 2));
+    console.log(`Thank you, ${answers.firstName}!`);
+    console.log(`Your email address is ${answers.emailAddress}.`);
+    if (answers.isExperienced === "yes") {
+      console.log(`You are an experienced developer.`);
+    } else {
+      console.log(`You are not an experienced developer.`);
+    }
+    if (answers.isExperienced === "no") {
+      console.log("You are not an experienced developer yet.");
+    } else {
+      const numLibraries = answers.jsLibraries.length;
+      if (numLibraries < 3) {
+        console.log("You have some knowledge of javascript libraries.");
+      } else if (numLibraries < 6) {
+        console.log("You have a good knowledge of javascript libraries.");
+      } else {
+        console.log(
+          "You have a perfect knowledge of JS libraries. You're a genius!"
+        );
+      }
+      console.log(
+        `You know the following JavaScript libraries: ${answers.jsLibraries.join(
+          ", "
+        )}.`
+      );
+      console.log(`Your expected salary is Rp.${answers.expectedSalary},00-.`);
+    }
   })
   .catch((error) => {
     if (error.isTtyError) {
