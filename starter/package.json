@@ -2,13 +2,13 @@
   "name": "developer-survey-cli",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "survey.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "app": "node ./survey.js"
+    "app": "node starter/survey.js"
   },
-  "author": "",
+  "author": "Ichsan Zulfikar",
   "license": "ISC",
   "dependencies": {
     "inquirer": "^9.1.4"
